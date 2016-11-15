@@ -1,0 +1,14 @@
+<ion-menu side="right" [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      ...
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-tabs #mycontent>
+  <ion-tab [root]="tab1Root" tabTitle="Places" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Add" tabIcon="text"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Around" tabIcon="stats"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Friends" tabIcon="image"></ion-tab>
+</ion-tabs>
