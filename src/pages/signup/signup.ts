@@ -1,22 +1,29 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the SignUp page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+import {Auth} from '../../providers/auth';
+import {Routes} from '../../app/app.routes'
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
 export class SignUpPage {
 
-  constructor(public navCtrl: NavController) {}
+  email:string;
+  password:string;
+  error:string;
+  constructor(public navCtrl: NavController, private auth: Auth) {}
 
-  ionViewDidLoad() {
-    console.log('Hello SignUpPage Page');
+  signUp() : void {
+    this.auth.signup({email:this.email,password:this.password })
+     .then((success)=>{
+       this.goTabs();
+     },(error)=>{
+       this.error = error._body;
+     });
+  }
+  goTabs() {
+    this.navCtrl.push(Routes.getPage(Routes.TABS));
   }
 
 }

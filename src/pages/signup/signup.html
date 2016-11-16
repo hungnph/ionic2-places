@@ -14,8 +14,21 @@
 
 
 <ion-content padding>
-  <label>Username: </label>
-  <input type="text"/>
-  <label>Password: </label>
-  <input type="text"/>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="error" class="signup_error">
+      {{error}}
+    </ion-item>
+    <div padding>
+      <button ion-button full (click)="signUp()">Sign Up</button>
+    </div>
+  </ion-list>
 </ion-content>

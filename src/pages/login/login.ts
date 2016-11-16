@@ -2,30 +2,36 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Routes } from '../../app/app.routes';
 
-/*
-  Generated class for the Login page.
+import {Auth} from '../../providers/auth';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  email : string;
+  password: string;
+  error : string;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, private auth : Auth) {}
 
   goTabs(){
     this.navCtrl.push(Routes.getPage(Routes.TABS));
   }
 
   login() : void {
-    let loginPage = Routes.getPage(Routes.LOGIN);
-    //this.navCtrl.push(loginPage);
-    let loginModal = this.modalCtrl.create(loginPage);
-    loginModal.present();
-
+    this.auth.login({email:this.email,password:this.password }).subscribe(
+      data=>{
+        console.log(data);
+      },
+      error=>{
+        console.log(error);
+      },
+      () => {
+        console.log("Rien");
+        this.goTabs();
+      }
+    );
   }
 
   signUp() : void {

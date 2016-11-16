@@ -6,6 +6,8 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HeaderContentComponent } from '../components/header-content/header-content';
 import { Routes } from './app.routes';
+import {Auth} from '../providers/auth';
+import {Endpoints} from '../providers/endpoints'
 
 let storage = new Storage();
 
@@ -44,7 +46,8 @@ const appIonicConfig = {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    },
+    }, 
+    Auth, Endpoints
   ]
 })
 export class AppModule {}

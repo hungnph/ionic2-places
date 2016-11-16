@@ -1,22 +1,36 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the Places page.
+import { AuthHttp } from 'angular2-jwt';
+import { Auth } from '../../providers/auth';
+import { Endpoints } from '../../providers/endpoints';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-places',
   templateUrl: 'places.html'
 })
 export class PlacesPage {
 
-  constructor(public navCtrl: NavController) {}
-
-  ionViewDidLoad() {
-    console.log('Hello PlacesPage Page');
+  places: any;
+  constructor(public navCtrl: NavController, private authHttp: AuthHttp, private auth : Auth, private endpoints : Endpoints) {
+    this.getPlaces();
   }
+
+  getPlaces() {
+    let obs = this.authHttp.get(this.endpoints.getPlaces()).map(res=>{
+      return res.json();
+    }).subscribe(
+      data=>{
+        this.places = data;
+      },
+      error=>{
+        console.log(error);
+      },
+      ()=>{
+        console.log("Completed");
+        console.log("places", this.places);
+      }
+    );
+  } 
 
 }
